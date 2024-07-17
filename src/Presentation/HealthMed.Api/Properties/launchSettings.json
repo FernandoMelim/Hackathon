@@ -27,7 +27,9 @@
         "AWS_PATIENT_POOL_ID": "",
         "AWS_PATIENT_CLIENT_ID_COGNITO": "",
         "AWS_ACCESS_KEY": "",
-        "AWS_SECRET_KEY": ""
+        "AWS_SECRET_KEY": "",
+        "AWS_SQS_LOG": "",
+        "AWS_SQS_GROUP_ID_LOG": ""
       },
       "publishAllPorts": true,
       "useSSL": true
