@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\Common\HealthMed.Common\HealthMed.Common.csproj" />
+		<ProjectReference Include="..\HealthMed.Doctor.Application\HealthMed.Doctor.Application.csproj" />
+		<ProjectReference Include="..\HealthMed.Doctor.Domain\HealthMed.Doctor.Domain.csproj" />
+		<ProjectReference Include="..\HealthMed.Doctor.Infrastructure\HealthMed.Doctor.Infrastructure.csproj" />
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,36 @@
+{
+  "profiles": {
+    "HealthMed.Api": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:58638;http://localhost:58639"
+    },
+    "Mock Lambda Test Tool": {
+      "commandName": "Executable",
+      "executablePath": "%USERPROFILE%\\.dotnet\\tools\\dotnet-lambda-test-tool-8.0.exe",
+      "commandLineArgs": "--port 5050",
+      "workingDirectory": ".\\bin\\$(Configuration)\\net8.0"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "environmentVariables": {
+        "ASPNETCORE_HTTPS_PORTS": "8081",
+        "ASPNETCORE_HTTP_PORTS": "8080",
+        "SQL_CONNECTION": "server=localhost; database=AssetQuery; User Id=sa; Password=SuaSenhaForte2024!; Integrated Security=true; encrypt=false",
+        "AWS_DOCTOR_POOL_ID": "",
+        "AWS_DOCTOR_CLIENT_ID_COGNITO": "",
+        "AWS_PATIENT_POOL_ID": "",
+        "AWS_PATIENT_CLIENT_ID_COGNITO": "",
+        "AWS_ACCESS_KEY": "",
+        "AWS_SECRET_KEY": ""
+      },
+      "publishAllPorts": true,
+      "useSSL": true
+    }
+  }
+}
