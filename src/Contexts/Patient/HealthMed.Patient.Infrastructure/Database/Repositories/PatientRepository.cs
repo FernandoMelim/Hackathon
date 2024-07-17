@@ -13,7 +13,7 @@ public class PatientRepository(Context.Context context) : IPatientRepository
         return await connection.QueryFirstAsync<PatientEntity>(@"
             SELECT 
                 FULLNAME AS FullName,
-                CRM AS Crm,
+                CPF AS Cpf,
                 EMAIL AS Email
             FROM PATIENTS
             WHERE EMAIL = @email 
