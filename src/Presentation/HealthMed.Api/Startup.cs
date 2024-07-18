@@ -1,6 +1,13 @@
+using Amazon;
+using Amazon.CloudWatchLogs;
+using Amazon.CloudWatchLogs.Model;
+using Amazon.Runtime;
 using HealthMed.Api.Middlewares;
 using HealthMed.Doctor.IoC;
 using HealthMed.Patient.IoC;
+using NLog;
+using NLog.AWS.Logger;
+using NLog.Config;
 
 namespace HealthMed.Api;
 
@@ -21,6 +28,7 @@ public class Startup
 
         services.ConfigureDoctorServices();
         services.ConfigurePatientServices();
+        ConfigureCloudWatch(services);
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -47,4 +55,29 @@ public class Startup
             });
         });
     }
+
+    private async void ConfigureCloudWatch(IServiceCollection services)
+    {
+        string accessKey = Environment.GetEnvironmentVariable("ACCESS_KEY");
+        string secretKey = Environment.GetEnvironmentVariable("SECRET_KEY");
+
+        AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
+
+        var config = new LoggingConfiguration();
+
+        config.AddRule(NLog.LogLevel.Trace, NLog.LogLevel.Fatal, new AWSTarget()
+        {
+            LogGroup = Environment.GetEnvironmentVariable("LOG_GROUP"),
+            Region = "us-east-1",
+            Credentials = credentials
+        });
+
+
+        LogManager.Configuration = config;
+
+        var log = LogManager.GetCurrentClassLogger();
+
+        services.AddSingleton(log);
+    }
+
 }

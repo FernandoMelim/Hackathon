@@ -16,13 +16,13 @@ namespace HealthMed.Doctor.IoC;
 
 public static class DependencyInjection
 {
-    private static string pathToApplicationAssembly = Path.Combine(AppContext.BaseDirectory, "HealthMed.Doctor.dll");
+    private static string pathToApplicationAssembly = Path.Combine(AppContext.BaseDirectory, "HealthMed.Doctor.Application.dll");
 
     public static void ConfigureDoctorServices(this IServiceCollection services)
     {
         ConfigureCognito(services);
         ConfigureRepositories(services);
-        ConfigureDatabase();
+        ConfigureDatabase(services);
         ConfigureNotificationServices(services);
         ConfigureValidators(services);
         ConfigureMediatr(services);
@@ -31,8 +31,8 @@ public static class DependencyInjection
 
     private static void ConfigureCognito(IServiceCollection services)
     {
-        string accessKey = Environment.GetEnvironmentVariable("AWS_ACCESS_KEY");
-        string secretKey = Environment.GetEnvironmentVariable("AWS_SECRET_KEY");
+        string accessKey = Environment.GetEnvironmentVariable("ACCESS_KEY");
+        string secretKey = Environment.GetEnvironmentVariable("SECRET_KEY");
 
         AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
 
@@ -49,13 +49,14 @@ public static class DependencyInjection
         services.AddAutoMapper(Assembly.LoadFrom(pathToApplicationAssembly));
     }
 
-    private static void ConfigureDatabase()
+    private static void ConfigureDatabase(IServiceCollection services)
     {
-        var context = new Context();
+        services.AddSingleton<Context>();
+        //var context = new Context();
 
-        using var connection = context.CreateConnection();
+        //using var connection = context.CreateConnection();
 
-        connection.Execute(@"", new { });
+        //connection.Execute(@"", new { });
     }
 
     private static void ConfigureMediatr(IServiceCollection services)

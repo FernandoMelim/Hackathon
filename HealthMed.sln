@@ -15,25 +15,31 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Patient", "Patient", "{8EAA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Doctor", "Doctor", "{23249FAA-2E8A-419C-A338-4973ADF0AF2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthMed.Patient.Domain", "src\Contexts\Patient\HealthMed.Patient.Domain\HealthMed.Patient.Domain.csproj", "{B94123B0-ED63-475D-AB26-A7DF0758E687}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.Patient.Domain", "src\Contexts\Patient\HealthMed.Patient.Domain\HealthMed.Patient.Domain.csproj", "{B94123B0-ED63-475D-AB26-A7DF0758E687}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{3CB379A8-C4B1-4739-98BE-0DC25F1DE2BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthMed.Common", "src\Common\HealthMed.Common\HealthMed.Common.csproj", "{06433F41-1E29-4D02-9B7F-49CEAE8E123E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.Common", "src\Common\HealthMed.Common\HealthMed.Common.csproj", "{06433F41-1E29-4D02-9B7F-49CEAE8E123E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthMed.Patient.Application", "src\Contexts\Patient\HealthMed.Patient.Application\HealthMed.Patient.Application.csproj", "{3102D84F-22E1-4AAE-A777-BB0BC4AB63FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.Patient.Application", "src\Contexts\Patient\HealthMed.Patient.Application\HealthMed.Patient.Application.csproj", "{3102D84F-22E1-4AAE-A777-BB0BC4AB63FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthMed.Patient.Infrastructure", "src\Contexts\Patient\HealthMed.Patient.Infrastructure\HealthMed.Patient.Infrastructure.csproj", "{B7B40E76-74EA-444C-87BE-767B228FFA49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.Patient.Infrastructure", "src\Contexts\Patient\HealthMed.Patient.Infrastructure\HealthMed.Patient.Infrastructure.csproj", "{B7B40E76-74EA-444C-87BE-767B228FFA49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthMed.Doctor.Domain", "src\Contexts\Doctor\HealthMed.Doctor.Domain\HealthMed.Doctor.Domain.csproj", "{A37D13A3-EC25-4C4B-8624-9CCBE8B90C91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.Doctor.Domain", "src\Contexts\Doctor\HealthMed.Doctor.Domain\HealthMed.Doctor.Domain.csproj", "{A37D13A3-EC25-4C4B-8624-9CCBE8B90C91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthMed.Doctor.Application", "src\Contexts\Doctor\HealthMed.Doctor.Application\HealthMed.Doctor.Application.csproj", "{EBBE6915-A4E8-4392-8272-C7F5CD40299F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.Doctor.Application", "src\Contexts\Doctor\HealthMed.Doctor.Application\HealthMed.Doctor.Application.csproj", "{EBBE6915-A4E8-4392-8272-C7F5CD40299F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthMed.Doctor.Infrastructure", "src\Contexts\Doctor\HealthMed.Doctor.Infrastructure\HealthMed.Doctor.Infrastructure.csproj", "{BA33BFA0-642F-4B10-B527-DE9F5B805B24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.Doctor.Infrastructure", "src\Contexts\Doctor\HealthMed.Doctor.Infrastructure\HealthMed.Doctor.Infrastructure.csproj", "{BA33BFA0-642F-4B10-B527-DE9F5B805B24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthMed.Doctor.IoC", "src\Contexts\Doctor\HealthMed.Doctor.IoC\HealthMed.Doctor.IoC.csproj", "{275BA01A-1C4B-4033-BD8A-B063F8842719}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.Doctor.IoC", "src\Contexts\Doctor\HealthMed.Doctor.IoC\HealthMed.Doctor.IoC.csproj", "{275BA01A-1C4B-4033-BD8A-B063F8842719}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthMed.Patient.IoC", "src\Contexts\Patient\HealthMed.Patient.IoC\HealthMed.Patient.IoC.csproj", "{EAD7DBE4-FDFB-4780-A51B-5861897C1E54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.Patient.IoC", "src\Contexts\Patient\HealthMed.Patient.IoC\HealthMed.Patient.IoC.csproj", "{EAD7DBE4-FDFB-4780-A51B-5861897C1E54}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0F99BC8C-BB41-4E33-81F9-FE8AB83FDEA6}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\deploy.yml = .github\workflows\deploy.yml
+		Terraform\main.tf = Terraform\main.tf
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -4,7 +4,15 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "SQL_CONNECTION": "Server=mydb.cbyylakdrivs.us-east-1.rds.amazonaws.com,1433;Database=FastFoodTotem;User Id=sa;Password=Fernando9+;MultipleActiveResultSets=true;TrustServerCertificate=true;",
+        "AWS_DOCTOR_POOL_ID": "us-east-1_HJPt2vdGN",
+        "AWS_DOCTOR_CLIENT_ID_COGNITO": "664ioqur6lce3lldap4id3uiqc",
+        "AWS_PATIENT_POOL_ID": "us-east-1_Ld5MqdOvz",
+        "AWS_PATIENT_CLIENT_ID_COGNITO": "5qujmttukqn3u2q805l9skhl7d",
+        "ACCESS_KEY": "",
+        "SECRET_KEY": "",
+        "LOG_GROUP": "/HealthMed/Logging"
       },
       "applicationUrl": "https://localhost:58638;http://localhost:58639"
     },
@@ -21,15 +29,14 @@
       "environmentVariables": {
         "ASPNETCORE_HTTPS_PORTS": "8081",
         "ASPNETCORE_HTTP_PORTS": "8080",
-        "SQL_CONNECTION": "server=localhost; database=AssetQuery; User Id=sa; Password=SuaSenhaForte2024!; Integrated Security=true; encrypt=false",
-        "AWS_DOCTOR_POOL_ID": "",
-        "AWS_DOCTOR_CLIENT_ID_COGNITO": "",
-        "AWS_PATIENT_POOL_ID": "",
-        "AWS_PATIENT_CLIENT_ID_COGNITO": "",
-        "AWS_ACCESS_KEY": "",
-        "AWS_SECRET_KEY": "",
-        "AWS_SQS_LOG": "",
-        "AWS_SQS_GROUP_ID_LOG": ""
+        "SQL_CONNECTION": "Server=mydb.cbyylakdrivs.us-east-1.rds.amazonaws.com,1433;Database=FastFoodTotem;User Id=sa;Password=Fernando9+;MultipleActiveResultSets=true;TrustServerCertificate=true;",
+        "AWS_DOCTOR_POOL_ID": "us-east-1_HJPt2vdGN",
+        "AWS_DOCTOR_CLIENT_ID_COGNITO": "664ioqur6lce3lldap4id3uiqc",
+        "AWS_PATIENT_POOL_ID": "us-east-1_Ld5MqdOvz",
+        "AWS_PATIENT_CLIENT_ID_COGNITO": "5qujmttukqn3u2q805l9skhl7d",
+        "ACCESS_KEY": "",
+        "SECRET_KEY": "",
+        "LOG_GROUP": "/HealthMed/Logging"
       },
       "publishAllPorts": true,
       "useSSL": true

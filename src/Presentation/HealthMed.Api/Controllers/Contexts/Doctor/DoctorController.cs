@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HealthMed.Api.Controllers.Contexts.Doctor;
 
+[ApiController]
+[Route("[controller]")]
 public class DoctorController(ValidationNotifications validationNotifications, IMediator mediator) : BaseController(validationNotifications)
 {
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiBaseResponse<AuthenticateDoctorResponse>))]

@@ -1,12 +1,16 @@
-﻿using HealthMed.Api.Controllers.Base;
+﻿using Amazon.CloudWatchLogs;
+using Amazon.CloudWatchLogs.Model;
+using Amazon.SQS.Model;
+using HealthMed.Api.Controllers.Base;
 using HealthMed.Common.Exceptions;
-using HealthMed.Common.Logger;
+using NLog;
 using System.Net;
 using System.Text.Json;
+using ValidationException = HealthMed.Common.Exceptions.ValidationException;
 
 namespace HealthMed.Api.Middlewares;
 
-public class ErrorHandlingMiddleware(RequestDelegate next, SqsLogger logger)
+public class ErrorHandlingMiddleware(RequestDelegate next, Logger logger)
 {
     public async Task Invoke(HttpContext context)
     {
@@ -53,7 +57,7 @@ public class ErrorHandlingMiddleware(RequestDelegate next, SqsLogger logger)
                 new KeyValuePair<string, List<string>>("InternalServerError", new List<string>() { "Internal server error" })
             };
 
-            await logger.Log(ex.StackTrace, ex.Message, ex.ToString());
+            logger.Log(NLog.LogLevel.Fatal, $"Exception: {ex.StackTrace}");
 
             await response.WriteAsync(JsonSerializer.Serialize(result));
         }
