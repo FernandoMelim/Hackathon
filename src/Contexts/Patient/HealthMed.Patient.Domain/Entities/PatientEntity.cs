@@ -10,4 +10,6 @@ public class PatientEntity
 
     public string Cpf {  get; set; }
 
+    public string Address { get; set; }
+
 }

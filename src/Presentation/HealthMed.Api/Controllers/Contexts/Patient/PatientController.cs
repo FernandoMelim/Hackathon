@@ -1,6 +1,7 @@
 ﻿using HealthMed.Api.Controllers.Base;
 using HealthMed.Common.Validation;
 using HealthMed.Patient.Application.UseCases.Patient.AuthenticatePatient;
+using HealthMed.Patient.Application.UseCases.Patient.SearchDoctor;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,5 +19,15 @@ public class PatientController(ValidationNotifications validationNotifications, 
     {
         var data = await mediator.Send(authenticatePatientRequest, cancellationToken);
         return await Return(new ApiBaseResponse<AuthenticatePatientResponse>() { Data = data });
+    }
+
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiBaseResponse<SearchDoctorResponse>))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ApiBaseResponse))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ApiBaseResponse))]
+    [HttpGet("SearchDoctor")]
+    public async Task<IActionResult> SearchDoctor([FromQuery]  int patientId, [FromQuery]  int? rating, [FromQuery]  int? doctorExpertiseId, [FromQuery]  int? km, CancellationToken cancellationToken)
+    {
+        var data = await mediator.Send(new SearchDoctorRequest(patientId, doctorExpertiseId, km, rating), cancellationToken);
+        return await Return(new ApiBaseResponse<SearchDoctorResponse>() { Data = data });
     }
 }

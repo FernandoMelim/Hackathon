@@ -87,7 +87,8 @@ public static class DependencyInjection
                     ID INT NOT NULL IDENTITY(1,1),
                     FULLNAME VARCHAR(MAX) NOT NULL,
                     CPF VARCHAR(11),
-                    EMAIL VARCHAR(MAX)  
+                    EMAIL VARCHAR(MAX),
+                    ADDRESS VARCHAR(MAX) NOT NULL
                 );
             END
 
@@ -95,12 +96,12 @@ public static class DependencyInjection
 
         var patients = new List<PatientEntity>()
         {
-            new PatientEntity(){ FullName = "Sérgio", Cpf = "70561391084", Email = "sergio@sergio.sergio" },
-            new PatientEntity(){ FullName = "Fernando", Cpf = "33590050071", Email = "fernando@fernando.com" },
-            new PatientEntity(){ FullName = "João", Cpf = "93211266003", Email = "joao@joao.com" },
-            new PatientEntity(){ FullName = "Maria", Cpf = "69147373040", Email = "maria.maria@maria.com" },
-            new PatientEntity(){ FullName = "Jasmine", Cpf = "70633353086", Email = "jasmine@jasmine.com" },
-            new PatientEntity(){ FullName = "Alice", Cpf = "36458377010", Email = "alice@alice.com" },
+            new PatientEntity(){ FullName = "Sérgio", Cpf = "70561391084", Email = "sergio@sergio.sergio", Address = "Rua Sampaio, 50, Juiz de Fora, MG" },
+            new PatientEntity(){ FullName = "Fernando", Cpf = "33590050071", Email = "fernando@fernando.com", Address = "Rua Sampaio, 50, Juiz de Fora, MG" },
+            new PatientEntity(){ FullName = "João", Cpf = "93211266003", Email = "joao@joao.com", Address = "Rua Sampaio, 50, Juiz de Fora, MG" },
+            new PatientEntity(){ FullName = "Maria", Cpf = "69147373040", Email = "maria.maria@maria.com", Address = "Rua Sampaio, 50, Juiz de Fora, MG"},
+            new PatientEntity(){ FullName = "Jasmine", Cpf = "70633353086", Email = "jasmine@jasmine.com", Address = "Rua Sampaio, 50, Juiz de Fora, MG" },
+            new PatientEntity(){ FullName = "Alice", Cpf = "36458377010", Email = "alice@alice.com", Address = "Rua Sampaio, 50, Juiz de Fora, MG" },
         };
 
         foreach (var patient in patients)
@@ -143,7 +144,7 @@ public static class DependencyInjection
 
         if (!exists)
         {
-            var insertQuery = "INSERT INTO Patients (FullName, Cpf, Email) VALUES (@FullName, @Cpf, @Email)";
+            var insertQuery = "INSERT INTO Patients (FullName, Cpf, Email, Address) VALUES (@FullName, @Cpf, @Email, @Address)";
             await connection.ExecuteAsync(insertQuery, patient);
         }
     }

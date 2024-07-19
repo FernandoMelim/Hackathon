@@ -16,7 +16,10 @@ public class DoctorRepository(Context context) : IDoctorRespository
                 FULLNAME AS FullName,
                 CRM AS Crm,
                 EMAIL AS Email,
-                EXPERTISE_ID as ExpertiseId
+                ADDRESS AS Address,
+                EXPERTISE_ID as ExpertiseId,
+                RATING AS Rating,
+                ID AS Id
             FROM DOCTORS
             WHERE CRM = @crm;
             ", new { @crm = crm });

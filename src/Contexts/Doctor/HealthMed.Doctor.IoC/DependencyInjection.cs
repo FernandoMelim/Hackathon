@@ -94,7 +94,9 @@ public static class DependencyInjection
                         ID INT NOT NULL PRIMARY KEY IDENTITY(1,1),
                         FULLNAME VARCHAR(MAX) NOT NULL,
                         CRM VARCHAR(9),
-                        EMAIL VARCHAR(MAX),
+                        EMAIL VARCHAR(MAX) NOT NULL,
+                        ADDRESS VARCHAR(MAX) NOT NULL,
+                        RATING INT NOT NULL,
                         EXPERTISE_ID INT NOT NULL,
                         CONSTRAINT FK_DOCTORS_EXPERTISE FOREIGN KEY (EXPERTISE_ID) REFERENCES DOCTOR_EXPERTISE(ID)
                     );
@@ -123,12 +125,12 @@ public static class DependencyInjection
 
         var doctors = new List<DoctorEntity>()
         {
-            new DoctorEntity(){ FullName = "Carlos", Crm = "123456/MG", Email = "carlos@exemplo.com", ExpertiseId = idsExpertise[0] },
-            new DoctorEntity(){ FullName = "Ana", Crm = "123456/MG", Email = "ana@exemplo.com", ExpertiseId = idsExpertise[1] },
-            new DoctorEntity(){ FullName = "Bruno", Crm = "123456/MG", Email = "bruno@exemplo.com", ExpertiseId = idsExpertise[2] },
-            new DoctorEntity(){ FullName = "Patrícia", Crm = "123456/MG", Email = "patricia@exemplo.com", ExpertiseId = idsExpertise[3] },
-            new DoctorEntity(){ FullName = "Leonardo", Crm = "123456/MG", Email = "leonardo@exemplo.com", ExpertiseId = idsExpertise[4] },
-            new DoctorEntity(){ FullName = "Clara", Crm = "123456/MG", Email = "clara@exemplo.com", ExpertiseId = idsExpertise[5] }
+            new DoctorEntity(){ FullName = "Carlos", Crm = "123456/MG", Email = "carlos@exemplo.com", ExpertiseId = idsExpertise[0], Rating = 5, Address = "Rua Sampaio, 87, Juiz de Fora, MG" },
+            new DoctorEntity(){ FullName = "Ana", Crm = "123456/MG", Email = "ana@exemplo.com", ExpertiseId = idsExpertise[1], Rating = 4, Address = "Rua Sampaio, 87, Juiz de Fora, MG" },
+            new DoctorEntity(){ FullName = "Bruno", Crm = "123456/MG", Email = "bruno@exemplo.com", ExpertiseId = idsExpertise[2], Rating = 3, Address = "Rua Sampaio, 87, Juiz de Fora, MG" },
+            new DoctorEntity(){ FullName = "Patrícia", Crm = "123456/MG", Email = "patricia@exemplo.com", ExpertiseId = idsExpertise[3], Rating = 2, Address = "Rua Quinze de Setembro, Três Rios, RJ" },
+            new DoctorEntity(){ FullName = "Leonardo", Crm = "123456/MG", Email = "leonardo@exemplo.com", ExpertiseId = idsExpertise[4] , Rating = 1, Address = "Rua Quinze de Setembro, Três Rios, RJ" },
+            new DoctorEntity(){ FullName = "Clara", Crm = "123456/MG", Email = "clara@exemplo.com", ExpertiseId = idsExpertise[5], Rating = 4, Address = "Rua Quinze de Setembro, Três Rios, RJ" }
         };
 
         foreach (var doctor in doctors)
@@ -170,7 +172,7 @@ public static class DependencyInjection
 
         if (!exists)
         {
-            var insertQuery = "INSERT INTO DOCTORS (FullName, Crm, Email, EXPERTISE_ID) VALUES (@FullName, @Crm, @Email, @ExpertiseId)";
+            var insertQuery = "INSERT INTO DOCTORS (FullName, Crm, Email, ADDRESS, RATING, EXPERTISE_ID) VALUES (@FullName, @Crm, @Email, @Address, @Rating, @ExpertiseId)";
             await connection.ExecuteAsync(insertQuery, doctor);
         }
     }

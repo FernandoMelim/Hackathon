@@ -1,8 +1,8 @@
-﻿namespace HealthMed.Doctor.Domain.Entitites;
+﻿namespace HealthMed.Patient.Domain.Entities;
 
 public class DoctorEntity
 {
-    public int Id {  get; set; }
+    public int Id { get; set; }
 
     public string FullName { get; set; }
 
@@ -15,4 +15,5 @@ public class DoctorEntity
     public int Rating { get; set; }
 
     public int ExpertiseId { get; set; }
+    public string ExpertiseName { get; set; }
 }
