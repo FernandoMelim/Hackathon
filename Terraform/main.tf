@@ -279,7 +279,7 @@ resource "aws_lambda_function" "HealthMedLamda" {
   depends_on = [null_resource.push_image, aws_ecr_repository.HealthMed]
   environment {
     variables = {
-      SQL_CONNECTION   = "Server=${split(":", aws_db_instance.rds-mssql.endpoint)[0]},${aws_db_instance.rds-mssql.port};Database=FastFoodTotem;User Id=sa;Password=Fernando9+;MultipleActiveResultSets=true;TrustServerCertificate=true;"
+      SQL_CONNECTION   = "Server=${split(":", aws_db_instance.rds-mssql.endpoint)[0]},${aws_db_instance.rds-mssql.port};Database=HealthMed;User Id=sa;Password=Fernando9+;MultipleActiveResultSets=true;TrustServerCertificate=true;"
       AWS_DOCTOR_POOL_ID = aws_cognito_user_pool.HealthMedDoctors.id
       AWS_DOCTOR_CLIENT_ID_COGNITO = aws_cognito_user_pool_client.HealthMedDoctorPool.id
       AWS_PATIENT_POOL_ID = aws_cognito_user_pool.HealthMedPatients.id
@@ -287,6 +287,7 @@ resource "aws_lambda_function" "HealthMedLamda" {
       ACCESS_KEY = aws_iam_access_key.fast_food_access_key.id
       SECRET_KEY = aws_iam_access_key.fast_food_access_key.secret
       LOG_GROUP = "/HealthMed/Logging"
+      SQL_CONNECTION_WITHOUT_DB = "Server=${split(":", aws_db_instance.rds-mssql.endpoint)[0]},${aws_db_instance.rds-mssql.port};User Id=sa;Password=Fernando9+;MultipleActiveResultSets=true;TrustServerCertificate=true;"
     }
   }
   package_type  = "Image"

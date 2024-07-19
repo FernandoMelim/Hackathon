@@ -11,11 +11,12 @@ public class DoctorRepository(Context context) : IDoctorRespository
     {
         using var connection = context.CreateConnection();
 
-        return await connection.QueryFirstAsync<DoctorEntity>(@"
+        return await connection.QueryFirstOrDefaultAsync<DoctorEntity>(@"
             SELECT 
                 FULLNAME AS FullName,
                 CRM AS Crm,
-                EMAIL AS Email
+                EMAIL AS Email,
+                EXPERTISE_ID as ExpertiseId
             FROM DOCTORS
             WHERE CRM = @crm;
             ", new { @crm = crm });

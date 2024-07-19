@@ -10,7 +10,7 @@ public class PatientRepository(Context.Context context) : IPatientRepository
     {
         using var connection = context.CreateConnection();
 
-        return await connection.QueryFirstAsync<PatientEntity>(@"
+        return await connection.QueryFirstOrDefaultAsync<PatientEntity>(@"
             SELECT 
                 FULLNAME AS FullName,
                 CPF AS Cpf,

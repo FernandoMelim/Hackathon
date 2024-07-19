@@ -5,7 +5,7 @@ namespace HealthMed.Doctor.Application.UseCases.Doctor.AuthenticateDoctor;
 
 public class AuthenticateDoctorValidation : AbstractValidator<AuthenticateDoctorRequest>
 {
-    private static readonly string crmPattern = @"^\d{5,6}(-\d)?$|^\d{3}\.\d{3}-\d{1,2}$";
+    private static readonly string crmPattern = @"^\d{6}/[A-Z]{2}$";
 
     public AuthenticateDoctorValidation()
     {
@@ -13,7 +13,7 @@ public class AuthenticateDoctorValidation : AbstractValidator<AuthenticateDoctor
            .NotEmpty()
            .WithMessage("O crm deve estar preenchido.")
            .Must(IsValidCRM)
-           .WithMessage("O cpf deve ser válido");
+           .WithMessage("O crm deve ser válido");
 
         RuleFor(dto => dto.Password)
             .NotEmpty()

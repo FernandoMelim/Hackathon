@@ -5,11 +5,12 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "SQL_CONNECTION": "Server=mydb.cbyylakdrivs.us-east-1.rds.amazonaws.com,1433;Database=FastFoodTotem;User Id=sa;Password=Fernando9+;MultipleActiveResultSets=true;TrustServerCertificate=true;",
-        "AWS_DOCTOR_POOL_ID": "us-east-1_HJPt2vdGN",
-        "AWS_DOCTOR_CLIENT_ID_COGNITO": "664ioqur6lce3lldap4id3uiqc",
-        "AWS_PATIENT_POOL_ID": "us-east-1_Ld5MqdOvz",
-        "AWS_PATIENT_CLIENT_ID_COGNITO": "5qujmttukqn3u2q805l9skhl7d",
+        "SQL_CONNECTION": "Server=mydb.cbyylakdrivs.us-east-1.rds.amazonaws.com,1433;Database=HealthMed;User Id=sa;Password=Fernando9+;MultipleActiveResultSets=true;TrustServerCertificate=true;",
+        "SQL_CONNECTION_WITHOUT_DB": "Server=mydb.cbyylakdrivs.us-east-1.rds.amazonaws.com,1433;User Id=sa;Password=Fernando9+;MultipleActiveResultSets=true;TrustServerCertificate=true;",
+        "AWS_DOCTOR_POOL_ID": "us-east-1_287xPV1iT",
+        "AWS_DOCTOR_CLIENT_ID_COGNITO": "4t4dnc3r3lnunksg2tcv49chgs",
+        "AWS_PATIENT_POOL_ID": "us-east-1_cpjxoz3jN",
+        "AWS_PATIENT_CLIENT_ID_COGNITO": "74cmbllj0j8mojaumtfq5e2mfi",
         "ACCESS_KEY": "",
         "SECRET_KEY": "",
         "LOG_GROUP": "/HealthMed/Logging"
