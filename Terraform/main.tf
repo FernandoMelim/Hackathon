@@ -299,3 +299,113 @@ resource "aws_lambda_function" "HealthMedLamda" {
   image_uri     = "${aws_ecr_repository.HealthMed.repository_url}:latest"
   role          = aws_iam_role.iam_for_lambda.arn
 }
+
+
+#### API GATEWAY
+
+resource "aws_apigatewayv2_api" "ApiGateway" {
+  name          = "HealthMedApi"
+  protocol_type = "HTTP"
+}
+
+resource "aws_apigatewayv2_authorizer" "jwt_doctor_authorizer" {
+  depends_on      = [aws_apigatewayv2_api.ApiGateway]
+  api_id          = aws_apigatewayv2_api.ApiGateway.id
+  name            = "jwt_authorizer_employees"
+  authorizer_type = "JWT"
+  identity_sources = [
+    "$request.header.Authorization"
+  ]
+  jwt_configuration {
+    audience = [aws_cognito_user_pool_client.HealthMedDoctorPool.id]
+    issuer   = "https://cognito-idp.us-east-1.amazonaws.com/${aws_cognito_user_pool.HealthMedDoctors.id}"
+  }
+}
+
+resource "aws_apigatewayv2_authorizer" "jwt_patient_authorizer" {
+  depends_on      = [aws_apigatewayv2_api.ApiGateway]
+  api_id          = aws_apigatewayv2_api.ApiGateway.id
+  name            = "jwt_authorizer_employees"
+  authorizer_type = "JWT"
+  identity_sources = [
+    "$request.header.Authorization"
+  ]
+  jwt_configuration {
+    audience = [aws_cognito_user_pool_client.HealthMedPatientPool.id]
+    issuer   = "https://cognito-idp.us-east-1.amazonaws.com/${aws_cognito_user_pool.HealthMedPatients.id}"
+  }
+}
+
+
+### Api gateway integration
+
+
+resource "aws_apigatewayv2_vpc_link" "vpc_link_api_to_lb" {
+  name               = "vpc_link_api_to_lb"
+  security_group_ids = [aws_security_group.rds_sg.id]
+  subnet_ids         = module.vpc.public_subnets
+}
+
+resource "aws_apigatewayv2_integration" "lambda_integration" {
+  depends_on             = [aws_apigatewayv2_api.ApiGateway]
+  api_id                 = aws_apigatewayv2_api.ApiGateway.id
+  integration_type       = "AWS_PROXY"
+  integration_method     = "POST"
+  integration_uri        = aws_lambda_function.HealthMedLamda.invoke_arn
+  payload_format_version = "2.0"
+}
+
+#### ROUTES
+
+resource "aws_apigatewayv2_route" "lambda_route_loginPatient" {
+  depends_on         = [aws_apigatewayv2_api.ApiGateway, aws_apigatewayv2_integration.lambda_integration]
+  api_id             = aws_apigatewayv2_api.ApiGateway.id
+  route_key          = "GET /LoginPatient/AuthenticatePatient"
+  target             = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
+}
+
+resource "aws_apigatewayv2_route" "lambda_route_loginDoctor" {
+  depends_on         = [aws_apigatewayv2_api.ApiGateway, aws_apigatewayv2_integration.lambda_integration]
+  api_id             = aws_apigatewayv2_api.ApiGateway.id
+  route_key          = "GET /LoginDoctor/AuthenticateDoctor"
+  target             = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
+}
+
+resource "aws_apigatewayv2_route" "lambda_route_any_doctor" {
+  depends_on         = [aws_apigatewayv2_api.ApiGateway, aws_apigatewayv2_integration.lambda_integration]
+  api_id             = aws_apigatewayv2_api.ApiGateway.id
+  route_key          = "ANY /Doctor/{proxy+}"
+  target             = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
+  authorizer_id      = aws_apigatewayv2_authorizer.jwt_doctor_authorizer.id
+  authorization_type = "JWT"
+}
+
+resource "aws_apigatewayv2_route" "lambda_route_any_patient" {
+  depends_on         = [aws_apigatewayv2_api.ApiGateway, aws_apigatewayv2_integration.lambda_integration]
+  api_id             = aws_apigatewayv2_api.ApiGateway.id
+  route_key          = "ANY /Patient/{proxy+}"
+  target             = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
+  authorizer_id      = aws_apigatewayv2_authorizer.jwt_patient_authorizer.id
+  authorization_type = "JWT"
+}
+
+##################################### STAGE
+
+resource "aws_apigatewayv2_stage" "ApiGatewayStage" {
+  depends_on  = [aws_apigatewayv2_api.ApiGateway]
+  api_id      = aws_apigatewayv2_api.ApiGateway.id
+  name        = "ApiGatewayStage"
+  auto_deploy = true
+}
+
+##################################### PERMISSIONS
+
+resource "aws_lambda_permission" "apigateway_invoke_lambda_totem" {
+  depends_on    = [aws_apigatewayv2_api.ApiGateway]
+  statement_id  = "AllowExecutionFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = "HealthMedLambda"
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_apigatewayv2_api.ApiGateway.execution_arn}/*/*/*/*"
+}
+
