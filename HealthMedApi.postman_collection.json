@@ -1,0 +1,299 @@
+{
+	"info": {
+		"_postman_id": "d3f28691-6457-4422-b7cf-89987fa1e219",
+		"name": "HealthMedApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13125005"
+	},
+	"item": [
+		{
+			"name": "Patients",
+			"item": [
+				{
+					"name": "1 - AuthenticateUser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/LoginPatient/AuthenticatePatient?Email=sergio@sergio.sergio&Cpf=70561391084&Password=12345678911",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"LoginPatient",
+								"AuthenticatePatient"
+							],
+							"query": [
+								{
+									"key": "Email",
+									"value": "sergio@sergio.sergio"
+								},
+								{
+									"key": "Cpf",
+									"value": "70561391084"
+								},
+								{
+									"key": "Password",
+									"value": "12345678911"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2 - Search for doctors",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{patientToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/Patient/SearchDoctor?patientId=1&rating=1&km=80",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Patient",
+								"SearchDoctor"
+							],
+							"query": [
+								{
+									"key": "patientId",
+									"value": "1"
+								},
+								{
+									"key": "rating",
+									"value": "1"
+								},
+								{
+									"key": "doctorExpertiseId",
+									"value": "4",
+									"disabled": true
+								},
+								{
+									"key": "km",
+									"value": "80"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3 - Schedule Appointment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{patientToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"patientId\": 1,\r\n    \"appointmentId\": \"3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Patient/ScheduleAppointment",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Patient",
+								"ScheduleAppointment"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Doctors",
+			"item": [
+				{
+					"name": "1 - AuthenticateDoctor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/LoginDoctor/AuthenticateDoctor?Crm=123456/MG&Password=12345678911",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"LoginDoctor",
+								"AuthenticateDoctor"
+							],
+							"query": [
+								{
+									"key": "Crm",
+									"value": "123456/MG"
+								},
+								{
+									"key": "Password",
+									"value": "12345678911"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2- Create Medical Appointment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{doctorToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"startDate\": \"2024-09-20T15:00:00\",\r\n    \"endDate\": \"2024-09-20T16:00:00\",\r\n    \"doctorId\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Doctor/CreateMedicalAppointmentTime",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Doctor",
+								"CreateMedicalAppointmentTime"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3 - Get Pending Medical Appointments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{doctorToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/Doctor/GetPendingMedicalAppointments/3",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Doctor",
+								"GetPendingMedicalAppointments",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4 - Accept Appointment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{doctorToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/Doctor/AcceptAppointment/3/3",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Doctor",
+								"AcceptAppointment",
+								"3",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://tebomj8f85.execute-api.us-east-1.amazonaws.com/ApiGatewayStage",
+			"type": "string"
+		},
+		{
+			"key": "patientToken",
+			"value": "eyJraWQiOiJndWl4NGdrV2ZMdzRBY1h3Z3ZnbXNIT1RYQkdnTVZXYUJCQVNmK1wvZWNHVT0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI5NDM4ZDRhOC00MDIxLTcwZDgtYWY5NS0yMDIyN2Y2MGI4MmIiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9WencwZjZqakMiLCJjb2duaXRvOnVzZXJuYW1lIjoiOTQzOGQ0YTgtNDAyMS03MGQ4LWFmOTUtMjAyMjdmNjBiODJiIiwib3JpZ2luX2p0aSI6IjBjZDNmZTMwLTc5ZmMtNDcwNC05ZTA0LTViZjU1MjdkYzgyMyIsImF1ZCI6IjdjcWZnb3BydTY1dmJqYjZra2xpbGZyanVjIiwiZXZlbnRfaWQiOiI4NzBmZGIxMC1kYjczLTQxNjYtOWI0MC1kZjcxMTVkNzBjMjYiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTcyMTY4ODMxMSwiZXhwIjoxNzIxNjkxOTEwLCJpYXQiOjE3MjE2ODgzMTEsImp0aSI6IjBkYmVlMGNjLTEzYWYtNDQ1Yy05Mjk5LTkyYzk4ZDYwMjc3MCIsImVtYWlsIjoic2VyZ2lvQHNlcmdpby5zZXJnaW8ifQ.dSJxch-SlWrLef30rJH8STKHztWdFDL5Kee54cXsvaLeeUSz6rsVBJFUEfAMpwB60X2309uT9rXTfRm-CQ_Zs3vq13x6sJSZqRdfTqarHWYheCrPeQwzHEPThgnn1LxydtBTsaul0o6K-AJLmpfovEeu_SuAJLQSL1uTxerIdQtvqjmG-EzW60-yA2VwxQXRDkgykg0qMglxrmiEEZMBL_sNA_A6yB0MK8X8tuMwTurDwmd_biXuyxOvxllnHwN9fMGcRkanuxfu52QmiZCG9J44gxzTcGQTcAPLb2e7Gh6QPI5T4efAPzACwFvx9fxGK1ZVaGTf4feoXua5o7FJGA",
+			"type": "string"
+		},
+		{
+			"key": "doctorToken",
+			"value": "eyJraWQiOiJPMWFTaGd3eVJyRGdkeW1ub2txSXFxZk9YQzR5Um1ud0lBZjhwWmZJV09jPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiIyNDA4MzRmOC1mMDgxLTcwZWQtMWVhNi04NTQwNGFhZTdmMDIiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9SZHJMb1ZyZGciLCJjb2duaXRvOnVzZXJuYW1lIjoiMjQwODM0ZjgtZjA4MS03MGVkLTFlYTYtODU0MDRhYWU3ZjAyIiwib3JpZ2luX2p0aSI6IjFmOWE5NWE1LWI3YWMtNDYwYi1hNGFkLThmZDlmOTliMzlmNiIsImF1ZCI6IjFsM25oYWJrcmJwc2U0MHJzdDMwNmtkOGQwIiwiZXZlbnRfaWQiOiI5MjQ1ZGZkNi1iNTI0LTQ5YTYtOWRiZi03MWQ3ZjBlMDBkOTEiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTcyMTY4ODQ4NSwiZXhwIjoxNzIxNjkyMDg1LCJpYXQiOjE3MjE2ODg0ODUsImp0aSI6IjU4NzA2YTA0LWVlNWYtNDA1Ny1iYTc2LWViMWZjMjlmMjEzNyIsImVtYWlsIjoiY2FybG9zQGV4ZW1wbG8uY29tIn0.si6KiBjlrOBlx13926_SyCuHdoPieSPQ5B-LVcGPsfZ2b-5cyA4rM169hMgu9U6WD-K6CDNQxpSIakhVbBw5DEb4Ts-Q2jzgCHE7Qfh8Rd0C43bn5r3DhNsidwGS3nBjP8HHx3c4-LeTCqBxgiTKb_tZWYdxyu2mOJcG41OjjN7UI4z1oEJgwn8bnxP3NzAtym5jc7Q3lxAXF__El4rDLR9MCEQ40v5iyUJ-u6Oz2v5cr4LzHjtGClk5IxTZEviuWbA6W4oMymkzhqgQjNYSLIo-OdPRb93Mq5Mme5rv0N1BEOhIEaeRQXaVmZHDLsdaDNbOGAUR-yOuQpt-u5yx0g",
+			"type": "string"
+		}
+	]
+}
