@@ -1,0 +1,3 @@
+﻿namespace HealthMed.Doctor.Application.UseCases.Doctor.CreateMedicalAppointmentTime;
+
+public record CreateMedicalAppointmentTimeResponse;

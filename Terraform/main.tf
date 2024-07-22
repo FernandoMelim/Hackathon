@@ -288,6 +288,7 @@ resource "aws_lambda_function" "HealthMedLamda" {
       SECRET_KEY = aws_iam_access_key.fast_food_access_key.secret
       LOG_GROUP = "/HealthMed/Logging"
       SQL_CONNECTION_WITHOUT_DB = "Server=${split(":", aws_db_instance.rds-mssql.endpoint)[0]},${aws_db_instance.rds-mssql.port};User Id=sa;Password=Fernando9+;MultipleActiveResultSets=true;TrustServerCertificate=true;"
+      GCP_KEY = ""
     }
   }
   package_type  = "Image"

@@ -15,8 +15,4 @@
 		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="2.1.0" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Logger\" />
-	</ItemGroup>
-
 </Project>

@@ -61,13 +61,13 @@ public class PatientRepository(Context.Context context) : IPatientRepository
 
         return await connection.QueryFirstOrDefaultAsync<PatientEntity>(@"
             SELECT 
+                ID AS Id,
                 FULLNAME AS FullName,
                 CPF AS Cpf,
                 EMAIL AS Email,
-                ADRESS as Address
+                ADDRESS as Address
             FROM PATIENTS
-            WHERE EMAIL = @email 
-                AND ID = @id;
+            WHERE ID = @id;
             ", new { @id = id });
     }
 }

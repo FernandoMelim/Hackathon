@@ -10,6 +10,15 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["src/Presentation/HealthMed.Api/HealthMed.Api.csproj", "src/Presentation/HealthMed.Api/"]
+COPY ["src/Contexts/Doctor/HealthMed.Doctor.IoC/HealthMed.Doctor.IoC.csproj", "src/Contexts/Doctor/HealthMed.Doctor.IoC/"]
+COPY ["src/Common/HealthMed.Common/HealthMed.Common.csproj", "src/Common/HealthMed.Common/"]
+COPY ["src/Contexts/Doctor/HealthMed.Doctor.Application/HealthMed.Doctor.Application.csproj", "src/Contexts/Doctor/HealthMed.Doctor.Application/"]
+COPY ["src/Contexts/Doctor/HealthMed.Doctor.Domain/HealthMed.Doctor.Domain.csproj", "src/Contexts/Doctor/HealthMed.Doctor.Domain/"]
+COPY ["src/Contexts/Doctor/HealthMed.Doctor.Infrastructure/HealthMed.Doctor.Infrastructure.csproj", "src/Contexts/Doctor/HealthMed.Doctor.Infrastructure/"]
+COPY ["src/Contexts/Patient/HealthMed.Patient.IoC/HealthMed.Patient.IoC.csproj", "src/Contexts/Patient/HealthMed.Patient.IoC/"]
+COPY ["src/Contexts/Patient/HealthMed.Patient.Application/HealthMed.Patient.Application.csproj", "src/Contexts/Patient/HealthMed.Patient.Application/"]
+COPY ["src/Contexts/Patient/HealthMed.Patient.Domain/HealthMed.Patient.Domain.csproj", "src/Contexts/Patient/HealthMed.Patient.Domain/"]
+COPY ["src/Contexts/Patient/HealthMed.Patient.Infrastructure/HealthMed.Patient.Infrastructure.csproj", "src/Contexts/Patient/HealthMed.Patient.Infrastructure/"]
 RUN dotnet restore "./src/Presentation/HealthMed.Api/HealthMed.Api.csproj"
 COPY . .
 WORKDIR "/src/src/Presentation/HealthMed.Api"

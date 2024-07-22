@@ -1,6 +1,7 @@
 ﻿using Amazon.CognitoIdentityProvider;
 using Amazon.CognitoIdentityProvider.Model;
 using Amazon.Runtime;
+using Azure.Core;
 using Dapper;
 using FluentValidation;
 using HealthMed.Common.Database;
@@ -102,6 +103,19 @@ public static class DependencyInjection
                     );
                 END
 
+                IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='AVAILABLE_DOCTOR_APPOINTMENT' AND xtype='U')
+                BEGIN
+                    CREATE TABLE AVAILABLE_DOCTOR_APPOINTMENT (
+                        ID INT IDENTITY(1,1) PRIMARY KEY,
+                        DOCTOR_ID INT NOT NULL,
+                        START_DATE DATETIME NOT NULL,
+                        END_DATE DATETIME NOT NULL,
+                        AVAILABLE BIT NOT NULL,
+                        CONSTRAINT FK_HorariosDisponiveis_Medicos FOREIGN KEY (DOCTOR_ID)
+                            REFERENCES DOCTORS (ID)
+                    );
+                END
+
         ", new { });
 
 
@@ -128,14 +142,14 @@ public static class DependencyInjection
             new DoctorEntity(){ FullName = "Carlos", Crm = "123456/MG", Email = "carlos@exemplo.com", ExpertiseId = idsExpertise[0], Rating = 5, Address = "Rua Sampaio, 87, Juiz de Fora, MG" },
             new DoctorEntity(){ FullName = "Ana", Crm = "123456/MG", Email = "ana@exemplo.com", ExpertiseId = idsExpertise[1], Rating = 4, Address = "Rua Sampaio, 87, Juiz de Fora, MG" },
             new DoctorEntity(){ FullName = "Bruno", Crm = "123456/MG", Email = "bruno@exemplo.com", ExpertiseId = idsExpertise[2], Rating = 3, Address = "Rua Sampaio, 87, Juiz de Fora, MG" },
-            new DoctorEntity(){ FullName = "Patrícia", Crm = "123456/MG", Email = "patricia@exemplo.com", ExpertiseId = idsExpertise[3], Rating = 2, Address = "Rua Quinze de Setembro, Três Rios, RJ" },
-            new DoctorEntity(){ FullName = "Leonardo", Crm = "123456/MG", Email = "leonardo@exemplo.com", ExpertiseId = idsExpertise[4] , Rating = 1, Address = "Rua Quinze de Setembro, Três Rios, RJ" },
-            new DoctorEntity(){ FullName = "Clara", Crm = "123456/MG", Email = "clara@exemplo.com", ExpertiseId = idsExpertise[5], Rating = 4, Address = "Rua Quinze de Setembro, Três Rios, RJ" }
+            new DoctorEntity(){ FullName = "Patrícia", Crm = "123456/MG", Email = "patricia@exemplo.com", ExpertiseId = idsExpertise[3], Rating = 2, Address = "R. 15 - Salutaris, Paraíba do Sul - RJ, Brazil" },
+            new DoctorEntity(){ FullName = "Leonardo", Crm = "123456/MG", Email = "leonardo@exemplo.com", ExpertiseId = idsExpertise[4] , Rating = 1, Address = "R. 15 - Salutaris, Paraíba do Sul - RJ, Brazil" },
+            new DoctorEntity(){ FullName = "Clara", Crm = "123456/MG", Email = "clara@exemplo.com", ExpertiseId = idsExpertise[5], Rating = 4, Address = "R. 15 - Salutaris, Paraíba do Sul - RJ, Brazil" }
         };
 
         foreach (var doctor in doctors)
         {
-            await InsertDoctorIfNotExistsAsync(doctor);
+            var doctorId = await InsertDoctorIfNotExistsAsync(doctor);
             await RegisterUserInCognitoIfNotExistsAsync(doctor.Email, cognitoProvider);
         }
     }
@@ -161,7 +175,7 @@ public static class DependencyInjection
         }
     }
 
-    private static async Task InsertDoctorIfNotExistsAsync(DoctorEntity doctor)
+    private static async Task<int> InsertDoctorIfNotExistsAsync(DoctorEntity doctor)
     {
         var context = new Context();
 
@@ -172,9 +186,11 @@ public static class DependencyInjection
 
         if (!exists)
         {
-            var insertQuery = "INSERT INTO DOCTORS (FullName, Crm, Email, ADDRESS, RATING, EXPERTISE_ID) VALUES (@FullName, @Crm, @Email, @Address, @Rating, @ExpertiseId)";
-            await connection.ExecuteAsync(insertQuery, doctor);
+            var insertQuery = "INSERT INTO DOCTORS (FullName, Crm, Email, ADDRESS, RATING, EXPERTISE_ID) OUTPUT INSERTED.ID VALUES (@FullName, @Crm, @Email, @Address, @Rating, @ExpertiseId) ";
+            return await connection.ExecuteScalarAsync<int>(insertQuery, doctor);
         }
+
+        return 0;
     }
 
     private static async Task RegisterUserInCognitoIfNotExistsAsync(string email, AmazonCognitoIdentityProviderClient cognitoProvider)

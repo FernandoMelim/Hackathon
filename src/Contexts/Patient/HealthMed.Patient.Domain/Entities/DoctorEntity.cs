@@ -15,5 +15,6 @@ public class DoctorEntity
     public int Rating { get; set; }
 
     public int ExpertiseId { get; set; }
+
     public string ExpertiseName { get; set; }
 }
