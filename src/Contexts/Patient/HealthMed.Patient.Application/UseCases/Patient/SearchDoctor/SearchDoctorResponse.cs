@@ -26,5 +26,17 @@ public class DoctorData
     public string ExpertiseName { get; set; }
 
     public double DistanceInKm { get; set; }
+
     public string DistanceInTime { get; set; }
+
+    public List<AppointmentData> AvailableAppointments { get; set; } = new List<AppointmentData>();
+}
+
+public class AppointmentData
+{
+    public int Id { get; set; }
+
+    public DateTime StartDate { get; set; }
+
+    public DateTime EndDate { get; set; }
 }

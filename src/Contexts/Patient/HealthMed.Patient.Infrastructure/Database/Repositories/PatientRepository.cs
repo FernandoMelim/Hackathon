@@ -38,6 +38,15 @@ public class PatientRepository(Context.Context context) : IPatientRepository
         return (await connection.QueryAsync<DoctorEntity>(sql, new { @rating = rating, @doctorExpertiseId = doctorExpertiseId })).ToList();
     }
 
+    public async Task<List<DoctorAvailableAppointment>> GetDoctorsAppointments(int id)
+    {
+        using var connection = context.CreateConnection();
+
+        return (await connection.QueryAsync<DoctorAvailableAppointment>(@"
+            SELECT ID AS Id, START_DATE as StartDate, END_DATE as EndDate FROM AVAILABLE_DOCTOR_APPOINTMENT WHERE DOCTOR_ID = @id AND START_DATE >= GETDATE() AND AVAILABLE = 1;
+            ", new { @id = id })).ToList();
+    }
+
     public async Task<PatientEntity> GetPatientUsingCpfAndEmail(string cpf, string email)
     {
         using var connection = context.CreateConnection();

@@ -106,7 +106,7 @@ public static class DependencyInjection
                 IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='AVAILABLE_DOCTOR_APPOINTMENT' AND xtype='U')
                 BEGIN
                     CREATE TABLE AVAILABLE_DOCTOR_APPOINTMENT (
-                        ID INT IDENTITY(1,1) PRIMARY KEY,
+                        ID INT PRIMARY KEY IDENTITY(1,1),
                         DOCTOR_ID INT NOT NULL,
                         START_DATE DATETIME NOT NULL,
                         END_DATE DATETIME NOT NULL,

@@ -20,6 +20,12 @@ public class SearchDoctorHandler(IPatientRepository patientRepository, IMapper m
         if (request.km.HasValue)
             doctorsData = await CalculateDistance(doctorsData, request.km.Value, patient.Address);
 
+        foreach(var doctor in doctorsData)
+        {
+            var appointments = await patientRepository.GetDoctorsAppointments(doctor.Id);
+            doctor.AvailableAppointments = mapper.Map<List<AppointmentData>>(appointments);
+        }
+
         return new SearchDoctorResponse() { Doctors = doctorsData };
     }
 
@@ -37,14 +43,18 @@ public class SearchDoctorHandler(IPatientRepository patientRepository, IMapper m
             if(response.IsSuccessStatusCode)
             {
                 var result = JsonSerializer.Deserialize<DistanceMatrixResponse>(response.Content.ReadAsStringAsync().Result);
-                var distanceInKm = ConvertMetersToKilometers(result.Rows[0].Elements[0].Distance.Value);
-
-                if (distanceInKm <= km)
+                if(result.Status != "DENIED")
                 {
-                    doctor.DistanceInKm = distanceInKm;
-                    doctor.DistanceInTime = result.Rows[0].Elements[0].Duration.Text;
-                    filteredDoctors.Add(doctor);
+                    var distanceInKm = ConvertMetersToKilometers(result.Rows[0].Elements[0].Distance.Value);
+
+                    if (distanceInKm <= km)
+                    {
+                        doctor.DistanceInKm = distanceInKm;
+                        doctor.DistanceInTime = result.Rows[0].Elements[0].Duration.Text;
+                        filteredDoctors.Add(doctor);
+                    }
                 }
+
             }
             else 
                 filteredDoctors.Add(doctor);

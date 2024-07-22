@@ -8,5 +8,6 @@ public class SearchDoctorMapper : Profile
     public SearchDoctorMapper()
     {
         CreateMap<DoctorEntity, DoctorData>();
+        CreateMap<DoctorAvailableAppointment, AppointmentData>();
     }
 }
