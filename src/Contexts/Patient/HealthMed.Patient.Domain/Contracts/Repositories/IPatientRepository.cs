@@ -9,4 +9,5 @@ public interface IPatientRepository
     Task<List<DoctorAvailableAppointment>> GetDoctorsAppointments(int id);
     Task<PatientEntity> GetPatientUsingCpfAndEmail(string cpf, string email);
     Task<PatientEntity> GetPatientUsingId(int id);
+    Task InsertPatientAppointmentRequest(PatientAppointmentsEntity patientAppointment);
 }

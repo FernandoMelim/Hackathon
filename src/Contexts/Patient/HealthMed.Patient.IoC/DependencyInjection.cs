@@ -96,13 +96,11 @@ public static class DependencyInjection
             BEGIN
                 CREATE TABLE PATIENT_APPOINTMENTS (
                     ID INT NOT NULL PRIMARY KEY IDENTITY(1,1),
-                    DOCTOR_ID INT NOT NULL,
                     PATIENT_ID INT NOT NULL,
+                    ACCEPTED BIT NOT NULL,
                     ID_AVAILABLE_DOCTOR_APPOINTMENT INT NOT NULL,
                     CONSTRAINT FK_Consultas_Pacientes FOREIGN KEY (PATIENT_ID)
                         REFERENCES PATIENTS (ID),
-                    CONSTRAINT FK_Consultas_Medicos FOREIGN KEY (DOCTOR_ID)
-                        REFERENCES DOCTORS (ID),
                     CONSTRAINT FK_ID_AVAILABLE_DOCTOR_APPOINTMENT FOREIGN KEY (ID_AVAILABLE_DOCTOR_APPOINTMENT)
                         REFERENCES AVAILABLE_DOCTOR_APPOINTMENT (ID)
                 );

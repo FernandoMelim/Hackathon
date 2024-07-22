@@ -56,7 +56,7 @@ public class PatientRepository(Context.Context context) : IPatientRepository
                 FULLNAME AS FullName,
                 CPF AS Cpf,
                 EMAIL AS Email,
-                ADRESS as Address
+                ADDRESS as Address
             FROM PATIENTS
             WHERE EMAIL = @email 
                 AND CPF = @cpf;
@@ -78,5 +78,15 @@ public class PatientRepository(Context.Context context) : IPatientRepository
             FROM PATIENTS
             WHERE ID = @id;
             ", new { @id = id });
+    }
+
+    public async Task InsertPatientAppointmentRequest(PatientAppointmentsEntity patientAppointment)
+    {
+        using var connection = context.CreateConnection();
+
+        await connection.ExecuteAsync(@"
+            INSERT INTO PATIENT_APPOINTMENTS (PATIENT_ID, ID_AVAILABLE_DOCTOR_APPOINTMENT, ACCEPTED)
+            VALUES (@patientId, @IdAvailableDoctorAppointment, 0);
+            ", new { @patientId = patientAppointment.PatientId, @IdAvailableDoctorAppointment = patientAppointment.IdAvailableDoctorAppointment });
     }
 }

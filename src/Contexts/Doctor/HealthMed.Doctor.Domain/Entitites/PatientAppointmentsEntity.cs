@@ -1,4 +1,4 @@
-﻿namespace HealthMed.Patient.Domain.Entities;
+﻿namespace HealthMed.Doctor.Domain.Entitites;
 
 public class PatientAppointmentsEntity
 {
