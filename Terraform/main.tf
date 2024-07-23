@@ -401,7 +401,7 @@ resource "aws_apigatewayv2_stage" "ApiGatewayStage" {
 ##################################### PERMISSIONS
 
 resource "aws_lambda_permission" "apigateway_invoke_lambda_totem" {
-  depends_on    = [aws_apigatewayv2_api.ApiGateway]
+  depends_on    = [aws_apigatewayv2_api.ApiGateway, aws_lambda_function.HealthMedLamda]
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
   function_name = "HealthMedLambda"
