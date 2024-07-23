@@ -15,6 +15,7 @@ Esse MVP foi desenvolvido como parte do entregável para o Hackaton do curso 'Pós
 
 ## Arquitetura do MVP
 ![FIAP Pós Tech](./fotos/arch.png)
+
 O MVP foi desenvolvido como um monolito em .NET 8 e publicado como Lambda Function. 
 A arquitetura consiste em um API Gateway responsável por disponibilizar os endpoints criados na lambda function, onde alguns dos endpoints não possuem autorização e outros possuem. 
 Essa lambda function é integrada a duas User Pools distintas no Cognito, serviço da AWS responsável por lidar com a autenticação dos pacientes e médicos que usarão o software. 
@@ -89,3 +90,4 @@ Após a execução do terraform, é necessário gerar a chave no Google Cloud e coloc
 
 Para publicar a aplicação, existe uma GitHub Action criada para isso presente [aqui](https://github.com/FernandoMelim/Hackathon/actions/workflows/deploy.yml).
 Essa Action é responsável por gerar uma imagem docker, subir ela pra um repositório no ECR e publicar essa imagem na Lambda Function gerada pelo terraform. Para isso funcionar corretamente, é necessário que as variáveis "AWS_ACCESS_KEY_ID" e "AWS_SECRET_ACCESS_KEY" estejam devidamente criadas e configuradas no repositório.
+Após esses passos, a aplicação funcionará corretamente através do API Gateway criado pelo terraform. O link do vídeo demonstrando a publicação e funcionamento da API está presente no PDF entregue na plataforma.
