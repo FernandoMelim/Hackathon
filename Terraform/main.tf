@@ -311,7 +311,7 @@ resource "aws_apigatewayv2_api" "ApiGateway" {
 resource "aws_apigatewayv2_authorizer" "jwt_doctor_authorizer" {
   depends_on      = [aws_apigatewayv2_api.ApiGateway]
   api_id          = aws_apigatewayv2_api.ApiGateway.id
-  name            = "jwt_authorizer_employees"
+  name            = "jwt_authorizer_doctor"
   authorizer_type = "JWT"
   identity_sources = [
     "$request.header.Authorization"
@@ -325,7 +325,7 @@ resource "aws_apigatewayv2_authorizer" "jwt_doctor_authorizer" {
 resource "aws_apigatewayv2_authorizer" "jwt_patient_authorizer" {
   depends_on      = [aws_apigatewayv2_api.ApiGateway]
   api_id          = aws_apigatewayv2_api.ApiGateway.id
-  name            = "jwt_authorizer_employees"
+  name            = "jwt_authorizer_patient"
   authorizer_type = "JWT"
   identity_sources = [
     "$request.header.Authorization"
